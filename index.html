@@ -155,8 +155,8 @@
       function startProgressBar() {
           const bar = document.getElementById("progress-bar");
           let width = 0;
-          const duration = 1000; // 1 second
-          const interval = 30;
+          const duration = 500; // 0.5ms
+          const interval = 10;
           const step = (interval / duration) * 100;
       
           const timer = setInterval(() => {
@@ -188,6 +188,7 @@
     </script>
   </body>
 </html>
+
 
 
 
