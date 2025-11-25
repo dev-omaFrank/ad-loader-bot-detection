@@ -153,22 +153,23 @@
       // }
 
       function startProgressBar() {
-        const bar = document.getElementById("progress-bar");
-        let width = 0;
-        const duration = 3000;
-        const interval = 30;
-        const step = (interval / duration) * 100;
-
-        const timer = setInterval(() => {
-          width += step;
-          bar.style.width = width + "%";
-
-          if (width >= 100) {
-            clearInterval(timer);
-            finalize();
-          }
-        }, interval);
+          const bar = document.getElementById("progress-bar");
+          let width = 0;
+          const duration = 1000; // 1 second
+          const interval = 30;
+          const step = (interval / duration) * 100;
+      
+          const timer = setInterval(() => {
+              width += step;
+              bar.style.width = width + "%";
+      
+              if (width >= 100) {
+                  clearInterval(timer);
+                  finalize();
+              }
+          }, interval);
       }
+
 
       function finalize() {
 
@@ -187,5 +188,6 @@
     </script>
   </body>
 </html>
+
 
 
